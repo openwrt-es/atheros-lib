@@ -79,7 +79,7 @@ int main (int argc, char **argv) {
 		int fdin, fdout, bytes_read, bytes_written;
 
 		// Open input file
-		fdin = open(file_input, O_RDONLY, S_IRWXU | S_IRWXG | S_IRWXO);
+		fdin = open(file_input, O_RDONLY, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 		printf("Input: %s\n", file_input);
 		printf("Offset: 0x%x (%d)\n", eeprom_offset, eeprom_offset);
 		printf("Size: 0x%x (%d)\n", eeprom_size, eeprom_size);
@@ -88,7 +88,7 @@ int main (int argc, char **argv) {
 		bytes_read = athlib_bytes_read(fdin, (uint8_t*) bytes, eeprom_offset, eeprom_size);
 		if(bytes_read == eeprom_size) {
 			// Open output file
-			fdout = open(file_output, O_CREAT|O_WRONLY|O_TRUNC, S_IRWXU + S_IRWXG + S_IRWXO);
+			fdout = open(file_output, O_CREAT | O_WRONLY | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 			printf("Output: %s\n", file_output);
 
 			// Write eeprom
